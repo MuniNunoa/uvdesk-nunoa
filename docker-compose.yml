@@ -12,16 +12,33 @@ services:
             - "$PWD:/var/www/uvdesk"
         container_name: "compose-nginx"
     php:
-        image: php:7.4-fpm
+        build: php
         ports:
             - "9000:9000"
         volumes:
             - "$PWD:/var/www/uvdesk"
         container_name: "compose-php"
+        links:
+            - "db"
     db:
         image: mysql:5.7
         ports:
             - "3306:3306"
         environment:
             - MYSQL_ROOT_PASSWORD=testpassword
+            - MYSQL_DATABASE=uvdesk
+            - MYSQL_USER=myadmin
+            - MYSQL_PASSWORD=mypassword
         container_name: "compose-mysql"
+        volumes:
+            - db-data:/var/lib/mysql
+    phpmyadmin:
+        image: phpmyadmin
+        restart: always
+        ports:
+        - 8080:80
+        environment:
+            - PMA_ARBITRARY=1
+
+volumes:
+    db-data:
