@@ -18,6 +18,8 @@ services:
             - "9000:9000"
         volumes:
             - codebase:/var/www/uvdesk
+            - "$PWD/permissions/conf:/var/www/uvdesk/conf"
+            - "$PWD/permissions/.env:/var/www/uvdesk/.env"
         container_name: "compose-php"
         links:
             - "db"
