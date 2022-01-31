@@ -1,0 +1,46 @@
+version: '3'
+
+services:
+    nginx:
+        image: nginx:latest
+        ports:
+            - "80:80"
+            - "443:443"
+        depends_on:
+            - "php"
+        volumes:
+            - "$PWD/nginx/conf.d:/etc/nginx/conf.d"
+            - codebase:/var/www/uvdesk
+        container_name: "compose-nginx"
+    php:
+        build: .
+        ports:
+            - "9000:9000"
+        volumes:
+            - codebase:/var/www/uvdesk
+        container_name: "compose-php"
+        links:
+            - "db"
+    db:
+        image: mysql:5.7
+        ports:
+            - "3306:3306"
+        environment:
+            - MYSQL_ROOT_PASSWORD=testpassword
+            - MYSQL_DATABASE=uvdesk
+            - MYSQL_USER=myadmin
+            - MYSQL_PASSWORD=mypassword
+        container_name: "compose-mysql"
+        volumes:
+            - db-data:/var/lib/mysql
+    phpmyadmin:
+        image: phpmyadmin
+        restart: always
+        ports:
+        - 8080:80
+        environment:
+            - PMA_ARBITRARY=1
+
+volumes:
+    db-data:
+    codebase:
