@@ -2,3 +2,5 @@
 /var/log/*
 /var/cache/*
 /Dockerfile
+/var/
+/vendor/
