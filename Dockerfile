@@ -14,12 +14,15 @@ RUN apt-get update && apt-get install -y \
     zlib1g-dev \
     libzip-dev \
     git vim
-    
+
 RUN docker-php-ext-install zip
 
 RUN printf "max_execution_time=600\nmemory_limit=1024M" > /usr/local/etc/php/php.ini
 COPY --from=composer:2.1 /usr/bin/composer /usr/local/bin/composer
 WORKDIR /var/www/uvdesk
-COPY . .
 
+COPY composer.json .
+COPY composer.lock .
 RUN composer install
+
+COPY . .
