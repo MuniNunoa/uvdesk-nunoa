@@ -15,7 +15,7 @@ RUN apt-get update && apt-get install -y \
     libzip-dev
 RUN docker-php-ext-install zip
 
-RUN echo "memory_limit=1024M" > /usr/local/etc/php/php.ini
+RUN printf "max_execution_time=600\nmemory_limit=1024M" > /usr/local/etc/php/php.ini
 COPY --from=composer:2.1 /usr/bin/composer /usr/local/bin/composer
 WORKDIR /var/www/uvdesk
 COPY . .
