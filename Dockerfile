@@ -12,7 +12,9 @@ RUN apt-get update && apt-get install -y --fix-missing \
 
 RUN apt-get update && apt-get install -y \
     zlib1g-dev \
-    libzip-dev
+    libzip-dev \
+    git vim
+    
 RUN docker-php-ext-install zip
 
 RUN printf "max_execution_time=600\nmemory_limit=1024M" > /usr/local/etc/php/php.ini
