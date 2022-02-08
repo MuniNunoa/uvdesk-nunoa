@@ -11,7 +11,7 @@ services:
         volumes:
             - "$PWD/nginx/conf.d:/etc/nginx/conf.d"
             - codebase:/var/www/uvdesk
-            - "$PWD/nginx/certs/letsencrypt:/cert"
+            - "$PWD/nginx/certs/letsencrypt:/etc/letsencrypt"
         container_name: "compose-nginx"
     php:
         build: .
