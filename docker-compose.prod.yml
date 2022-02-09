@@ -1,26 +1,30 @@
 version: '3'
 
 services:
-    nginx:
-        image: nginx:latest
+    nginx-proxy:
+        image: nginxproxy/nginx-proxy
         ports:
             - "80:80"
             - "443:443"
         depends_on:
             - "php"
         volumes:
-            - "$PWD/nginx/conf.d:/etc/nginx/conf.d"
+            # - "$PWD/nginx/conf.d:/etc/nginx/conf.d"
             - codebase:/var/www/uvdesk
+            - /var/run/docker.sock:/tmp/docker.sock:ro
         container_name: "compose-nginx"
     php:
         build: .
-        ports:
-            - "9000:9000"
+        expose:
+            - "8001"
         volumes:
             - codebase:/var/www/uvdesk
         container_name: "compose-php"
         links:
             - "db"
+        environment:
+            - VIRTUAL_HOST=uvdesk.local
+            - VIRTUAL_PORT=8001
     db:
         image: mysql:5.7
         ports:
