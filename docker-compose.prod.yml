@@ -16,7 +16,7 @@ services:
     php:
         build: .
         expose:
-            - "8001"
+            - "9000"
         volumes:
             - codebase:/var/www/uvdesk
         container_name: "compose-php"
@@ -24,7 +24,7 @@ services:
             - "db"
         environment:
             - VIRTUAL_HOST=uvdesk.local
-            - VIRTUAL_PORT=8001
+            - VIRTUAL_PORT=9000
     db:
         image: mysql:5.7
         ports:
