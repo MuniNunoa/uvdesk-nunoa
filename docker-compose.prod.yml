@@ -10,13 +10,13 @@ services:
             - "php"
         volumes:
             # - "$PWD/nginx/conf.d:/etc/nginx/conf.d"
-            - codebase:/var/www/uvdesk
+            # - codebase:/var/www/uvdesk
             - /var/run/docker.sock:/tmp/docker.sock:ro
         container_name: "compose-nginx"
     php:
         build: .
         expose:
-            - "9000"
+            - "8001"
         volumes:
             - codebase:/var/www/uvdesk
         container_name: "compose-php"
@@ -24,7 +24,9 @@ services:
             - "db"
         environment:
             - VIRTUAL_HOST=uvdesk.local
-            - VIRTUAL_PORT=9000
+            - VIRTUAL_PORT=8001
+            - VIRTUAL_PROTO=fastcgi
+            - VIRTUAL_ROOT=/var/www/uvdesk
     db:
         image: mysql:5.7
         ports:
