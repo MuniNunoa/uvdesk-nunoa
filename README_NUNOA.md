@@ -1,7 +1,7 @@
 # README
 
 To run in server:
-'''{bash}
+```{bash}
 docker-compose -f docker-compose.prod.yml up --build
-'''
+```
 
