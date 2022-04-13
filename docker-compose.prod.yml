@@ -10,14 +10,14 @@ services:
             - "php"
         volumes:
             - "$PWD/nginx/conf.d:/etc/nginx/conf.d"
-            - codebase:/var/www/uvdesk
+            - "$PWD:/var/www/uvdesk"
         container_name: "compose-nginx"
     php:
         build: .
         ports:
             - "9000:9000"
         volumes:
-            - codebase:/var/www/uvdesk
+            - "$PWD:/var/www/uvdesk"
         container_name: "compose-php"
         links:
             - "db"

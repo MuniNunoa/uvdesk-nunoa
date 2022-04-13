@@ -20,6 +20,6 @@ RUN docker-php-ext-install zip
 RUN printf "max_execution_time=600\nmemory_limit=1024M" > /usr/local/etc/php/php.ini
 COPY --from=composer:2.1 /usr/bin/composer /usr/local/bin/composer
 WORKDIR /var/www/uvdesk
-COPY . .
+#COPY . .
 
-RUN composer install
+#RUN composer install
